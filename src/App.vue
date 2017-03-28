@@ -6,12 +6,14 @@
       <button>Add</button>
     </form>
     <div v-for="todo in todos">
-      <p>{{ todo.name }}</p>
+      <todo-item :todo='todo'></todo-item>
     </div>
   </div>
 </template>
 
 <script>
+import TodoItem from './components/todo_item.vue';
+
 export default {
   name: 'app',
   data: function () {
@@ -20,6 +22,9 @@ export default {
       todos: [],
       statuses: ["incomplete", "complete"]
     }
+  },
+  components: {
+    'todo-item': TodoItem
   },
   computed: {
     finished: function () {

@@ -2,7 +2,7 @@
   <div id="app">
     <h1>OED Sample Todo App</h1>
     <form v-on:submit.prevent="addTodo">
-      <input v-model="newTodo">
+      <input v-model="label">
       <button>Add</button>
     </form>
     <div v-for="todo in todos">
@@ -18,9 +18,8 @@ export default {
   name: 'app',
   data: function () {
     return {
-      newTodo: "",
-      todos: [],
-      statuses: ["incomplete", "complete"]
+      label: '',
+      todos: this.$store.state.todos
     }
   },
   components: {
@@ -33,13 +32,7 @@ export default {
   },
   methods: {
     addTodo: function () {
-      this.todos.push({name: this.newTodo, status: this.findStatus("incomplete")})
-      this.newTodo = ''
-    },
-    findStatus: function (name) {
-      if (this.statuses.includes(name)) {
-        return name; }
-      return null
+      this.$store.commit('addTodo', this.label)
     },
     isFinished: function (todo) {
       return todo.status === "complete"
